@@ -1,0 +1,40 @@
+{
+  "id": "mysql",
+  "cmd": null,
+  "cpus": 1,
+  "mem": 512,
+  "disk": 0,
+  "instances": 1,
+  "container": {
+    "docker": {
+      "image": "cheaperthandirt/dropshippermysql",
+      "network": "BRIDGE",
+      "portMappings": [
+        {
+          "containerPort": 3306,
+		  "hostPort": 3306,
+          "protocol": "tcp",
+          "servicePort": 10000,
+        }
+      ]
+    },
+    "type": "DOCKER",
+    "volumes": [
+	  {
+        "containerPath": "mysqldata",
+        "mode": "RW",
+        "persistent": {
+          "size": 1000
+        }
+      },
+      {
+        "containerPath": "/var/lib/mysql",
+        "hostPath": "mysqldata",
+        "mode": "RW"
+      }
+	]
+  },
+  "env": {
+    "MYSQL_ROOT_PASSWORD": "foobar"
+  }
+}
